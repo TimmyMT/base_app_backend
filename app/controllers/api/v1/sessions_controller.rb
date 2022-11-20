@@ -7,7 +7,7 @@ class Api::V1::SessionsController < ApplicationController
 
       render json: token, status: :created
     else
-      render json: { error: 'Something went wrong. Please try again' }, status: :unauthorized
+      render json: { error: 'Something went wrong. Please try again' }, status: 401
     end
   end
 

@@ -24,14 +24,41 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: 'localhost:3000'
             }
           }
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          # errors_object: {
+          #   type: 'object',
+          #   properties: {
+          #     errors: { '$ref' => '#/components/schemas/errors_map' }
+          #   }
+          # },
+          # errors_map: {
+          #   type: 'object',
+          #   additionalProperties: {
+          #     type: 'array',
+          #     items: { type: 'string' }
+          #   }
+          # },
+          user: {
+            type: 'object',
+            properties: {
+              id: { type: 'integer' },
+              email: { type: 'string' },
+              created_at: { type: 'string' }, # "2022-11-20T13:48:04.539Z"
+              updated_at: { type: 'string' }
+            }#,
+            #required: %w[id email created_at updated_at]
+          }
+        }
+      }
     }
   }
 

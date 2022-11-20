@@ -4,6 +4,48 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/sessions":
+    post:
+      summary: Creates a session
+      tags:
+      - Sessions
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    user_id: 1
+                    token: blablabla
+                    expires_in: '2022-11-21T01:43:16+05:00'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    message: Something went wrong, please try again
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+              required:
+              - email
+              - password
+              - password_confirmation
   "/api/v1/users":
     post:
       summary: Creates a user
@@ -12,9 +54,21 @@ paths:
       parameters: []
       responses:
         '201':
-          description: You're registered successfully
+          description: Created
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    message: You're registered successfully
         '400':
-          description: Something went wrong, please try again
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    message: Something went wrong, please try again
       requestBody:
         content:
           application/json:
@@ -34,8 +88,48 @@ paths:
               - email
               - password
               - password_confirmation
+  "/api/v1/users/:id":
+    get:
+      summary: return user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                type: object
+                "$ref": "#/components/schemas/user"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    message: Something went wrong, please try again
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
