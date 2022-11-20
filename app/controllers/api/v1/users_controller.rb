@@ -14,10 +14,10 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def passwords_valid?
-    return false if params_permit[:password_confirmation].blank?
-    return false if params_permit[:password].blank?
+    return false if user_params[:password_confirmation].blank?
+    return false if user_params[:password].blank?
 
-    params_permit[:password_confirmation] == params_permit[:password]
+    user_params[:password_confirmation] == user_params[:password]
   end
 
   def user_params

@@ -6,7 +6,7 @@ RSpec.describe Api::V1::SessionsController, type: :request do
 
   describe 'POST #create' do
     before do
-      post base_url, { user: { email: user.email, password: '123qweQ!' } }
+      post base_url, { user: { email: user.email, password: '123456' } }
     end
 
     it 'return status created' do
