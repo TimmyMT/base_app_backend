@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   host: localhost
   user: postgres
-  database: users_api
+  database: base_app_api
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
