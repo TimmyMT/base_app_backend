@@ -29,10 +29,16 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def logout
-    token = request.env["HTTP_AUTHORIZATION"].split(' ').last
-    AccessToken.find_by!(token: token).destroy
+    bearer = request.env["HTTP_AUTHORIZATION"]
 
-    render json: {}, status: :no_content
+    if bearer
+      token = bearer.split(' ').last
+      AccessToken.find_by!(token: token).destroy
+
+      render json: {}, status: :no_content
+    else
+      render json: { error: "Bearer not included" }, status: :bad_request
+    end
   rescue ActiveRecord::RecordNotFound
     render json: { message: "Access denied" }, status: :unauthorized
   end

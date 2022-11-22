@@ -189,6 +189,11 @@ servers:
     defaultHost:
       default: localhost:3000
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     user:
       type: object
@@ -199,6 +204,7 @@ components:
           type: string
         created_at:
           type: string
+          format: date-time
         updated_at:
           type: string
     access_token:
@@ -216,3 +222,5 @@ components:
       type: array
       items:
         "$ref": "#/components/schemas/user"
+security:
+- bearerAuth: []

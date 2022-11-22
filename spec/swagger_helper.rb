@@ -33,13 +33,20 @@ RSpec.configure do |config|
         }
       ],
       components: {
+        securitySchemes: {
+          bearerAuth: { # arbitrary name for the security scheme
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT'
+          }
+        },
         schemas: {
           user: {
             type: 'object',
             properties: {
               id: { type: 'integer' },
               email: { type: 'string' },
-              created_at: { type: 'string' }, # "2022-11-20T13:48:04.539Z"
+              created_at: { type: 'string', format: 'date-time' }, # "2022-11-20T13:48:04.539Z"
               updated_at: { type: 'string' }
             },# required: %w[id email created_at updated_at]
           },
@@ -57,7 +64,10 @@ RSpec.configure do |config|
             items: { '$ref' => '#/components/schemas/user' }
           }
         }
-      }
+      },
+      security: [
+        { 'bearerAuth' => [] }
+      ]
     }
   }
 
