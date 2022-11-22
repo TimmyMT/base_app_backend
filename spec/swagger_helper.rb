@@ -34,19 +34,6 @@ RSpec.configure do |config|
       ],
       components: {
         schemas: {
-          # errors_object: {
-          #   type: 'object',
-          #   properties: {
-          #     errors: { '$ref' => '#/components/schemas/errors_map' }
-          #   }
-          # },
-          # errors_map: {
-          #   type: 'object',
-          #   additionalProperties: {
-          #     type: 'array',
-          #     items: { type: 'string' }
-          #   }
-          # },
           user: {
             type: 'object',
             properties: {
@@ -54,8 +41,11 @@ RSpec.configure do |config|
               email: { type: 'string' },
               created_at: { type: 'string' }, # "2022-11-20T13:48:04.539Z"
               updated_at: { type: 'string' }
-            }#,
-            #required: %w[id email created_at updated_at]
+            },# required: %w[id email created_at updated_at]
+          },
+          users_array: {
+            type: 'array',
+            items: { '$ref' => '#/components/schemas/user' }
           }
         }
       }

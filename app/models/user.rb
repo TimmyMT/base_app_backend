@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :access_tokens, dependent: :destroy
+  has_many :refresh_tokens, dependent: :destroy
 end

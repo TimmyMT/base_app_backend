@@ -14,11 +14,20 @@ class Tokens::Create
         times_count = user.access_tokens.count - 2
         times_count.times { user.access_tokens.first.destroy }
       end
-      user.access_tokens.create(
+      refresh_salt = generate_verify_code
+      access_token = user.access_tokens.create(
         user: user,
         token: encode(payload),
-        expires_in: DateTime.now + 30.minutes
+        expires_in: DateTime.now + 30.minutes,
+        refresh: refresh_salt
       )
+      RefreshToken.create!(
+        access_token: access_token,
+        user: access_token.user,
+        token: refresh_salt
+      )
+
+      access_token
     end
   end
 

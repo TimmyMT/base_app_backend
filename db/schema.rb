@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_140103) do
+ActiveRecord::Schema.define(version: 2022_11_22_122717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,18 @@ ActiveRecord::Schema.define(version: 2022_11_20_140103) do
     t.datetime "expires_in"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "refresh"
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
+  end
+
+  create_table "refresh_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "access_token_id", null: false
+    t.string "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["access_token_id"], name: "index_refresh_tokens_on_access_token_id"
+    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,9 +43,12 @@ ActiveRecord::Schema.define(version: 2022_11_20_140103) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "access_tokens", "users"
+  add_foreign_key "refresh_tokens", "access_tokens"
+  add_foreign_key "refresh_tokens", "users"
 end
