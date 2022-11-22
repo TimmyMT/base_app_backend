@@ -1,9 +1,7 @@
 require 'swagger_helper'
 
 describe 'users API' do
-
   path '/api/v1/users' do
-
     post 'Creates a user' do
       tags 'Users'
       consumes 'application/json'
@@ -38,9 +36,21 @@ describe 'users API' do
     end
   end
 
-  path '/api/v1/users/:id' do
+  path '/api/v1/users' do
+    get 'Return users list' do
+      tags 'Users'
+      produces 'application/json'
+      
+      response '200', "Found" do
+        schema type: :object, '$ref' => '#/components/schemas/users_array'
 
-    get 'return user' do
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/users/:id' do
+    get 'Return user' do
       tags 'Users'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string

@@ -1,5 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   def index
+    authorize(nil, policy_class: UsersPolicy)
+
     render json: User.all
   end
 

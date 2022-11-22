@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
-      resources :sessions
+      resources :sessions do
+        collection do
+          post :refresh
+          delete :logout
+        end
+      end
     end
   end
 end
