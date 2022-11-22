@@ -45,9 +45,9 @@ RSpec.configure do |config|
             type: 'object',
             properties: {
               id: { type: 'integer' },
-              email: { type: 'string' },
+              email: { type: 'string', format: 'email' },
               created_at: { type: 'string', format: 'date-time' }, # "2022-11-20T13:48:04.539Z"
-              updated_at: { type: 'string' }
+              updated_at: { type: 'string', format: 'date-time'  }
             },# required: %w[id email created_at updated_at]
           },
           access_token: {
@@ -55,7 +55,7 @@ RSpec.configure do |config|
             properties: {
               user_id: { type: 'integer' },
               token: { type: 'string' },
-              expires_in: { type: 'string' },
+              expires_in: { type: 'string', format: 'date-time' },
               refresh: { type: 'string' }
             }
           },
