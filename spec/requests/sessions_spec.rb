@@ -5,6 +5,7 @@ describe 'sessions API' do
     post 'Creates a session' do
       tags 'Sessions'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: :session, in: :body, schema: {
         type: :object,
         properties: {
@@ -17,13 +18,8 @@ describe 'sessions API' do
         required: [ 'email', 'password', 'password_confirmation' ]
       }
 
-      response '201', "Created", document: true do
-        example 'application/json', :example_1, {
-          user_id: 1,
-          token: 'blablabla',  # Token.create(...).token
-          expires_in: DateTime.now,  # Token.create(...).expires_in
-          refresh_token: 'blablabla'
-        }
+      response '201', "Created" do
+        schema type: :object, '$ref' => '#/components/schemas/access_token'
 
         run_test!
       end
@@ -42,6 +38,7 @@ describe 'sessions API' do
     post 'Refresh session' do
       tags 'Sessions'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: :session, in: :body, schema: {
         type: :object,
         properties: {
@@ -50,13 +47,8 @@ describe 'sessions API' do
         required: [ 'token' ]
       }
 
-      response '201', "Created", document: true do
-        example 'application/json', :example_1, {
-          user_id: 1,
-          token: 'blablabla',  # Token.create(...).token
-          expires_in: DateTime.now,  # Token.create(...).expires_in
-          refresh_token: 'blablabla'
-        }
+      response '201', "Created" do
+        schema type: :object, '$ref' => '#/components/schemas/access_token'
 
         run_test!
       end
@@ -83,7 +75,7 @@ describe 'sessions API' do
         required: [ 'token' ]
       }
 
-      response '204', "No content", document: true do
+      response '204', "No content" do
         run_test!
       end
 

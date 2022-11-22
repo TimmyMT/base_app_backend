@@ -43,6 +43,15 @@ RSpec.configure do |config|
               updated_at: { type: 'string' }
             },# required: %w[id email created_at updated_at]
           },
+          access_token: {
+            type: 'object',
+            properties: {
+              user_id: { type: 'integer' },
+              token: { type: 'string' },
+              expires_in: { type: 'string' },
+              refresh: { type: 'string' }
+            }
+          },
           users_array: {
             type: 'array',
             items: { '$ref' => '#/components/schemas/user' }
