@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authenticate!, only: [:index]
+
   def index
     authorize(nil, policy_class: UsersPolicy)
 
