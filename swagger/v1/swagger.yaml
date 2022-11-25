@@ -80,7 +80,6 @@ paths:
       summary: Delete session
       tags:
       - Sessions
-      parameters: []
       responses:
         '204':
           description: No content
@@ -92,16 +91,6 @@ paths:
                 example_1:
                   value:
                     message: Access denied
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-              required:
-              - token
   "/api/v1/users":
     post:
       summary: Creates a user
