@@ -19,7 +19,7 @@ class Tokens::Create
       access_token = user.access_tokens.create(
         user: user,
         token: encode(payload),
-        expires_in: expires_time,
+        expires_in: @expires_time,
         refresh: refresh_salt
       )
       RefreshToken.create!(
@@ -42,7 +42,7 @@ class Tokens::Create
     payload[:id] = user.id
     payload[:email] = user.email
     payload[:salt] = generate_verify_code
-    payload[:expires_in] = expires_time
+    payload[:expires_in] = @expires_time
   end
 
   def generate_verify_code
