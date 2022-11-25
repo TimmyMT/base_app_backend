@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users
+      resources :users do
+        member do
+          get :confirm_account
+        end
+      end
       resources :sessions do
         collection do
           post :refresh

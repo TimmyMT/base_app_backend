@@ -18,10 +18,23 @@ class Api::V1::UsersController < ApplicationController
 
     if user.valid? && passwords_valid?
       user.save
+      UserMailer.send_confirm_mail(user).deliver
 
       render json: { message: "You're registered successfully" }, status: 201
     else
       render json: { message: "Something went wrong, please try again" }, status: 400
+    end
+  end
+
+  def confirm_account
+    user = User.find_by_confirm_token(params[:id])
+
+    if user
+      user.email_activate
+
+      render json: { message: "Welcome to the Sample App! Your email has been confirmed" }
+    else
+      render json: { error: "Sorry. User does not exist" }, status: 400
     end
   end
 
