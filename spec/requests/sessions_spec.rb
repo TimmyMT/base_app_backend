@@ -67,13 +67,6 @@ describe 'sessions API' do
     delete 'Delete session' do
       tags 'Sessions'
       consumes 'application/json'
-      parameter name: :session, in: :body, schema: {
-        type: :object,
-        properties: {
-          token: { type: :string },
-        },
-        required: [ 'token' ]
-      }
 
       response '204', "No content" do
         run_test!
