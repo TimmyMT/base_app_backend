@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
     render json: { message: 'Access denied' }, status: :forbidden
   end
 
+  def render_bad_request(error = 'Something went wrong. Please try again')
+    render json: { error: error }, status: :bad_request
+  end
+
   def render_unauthorized
     render json: { message: "Unauthorized" }, status: 401
   end
