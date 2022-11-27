@@ -53,9 +53,9 @@ describe 'sessions API' do
         run_test!
       end
 
-      response '401', 'Unauthorized' do
+      response '400', 'Bad request' do
         example 'application/json', :example_1, {
-          message: "Access denied"
+          message: "Something went wrong. Please try again"
         }
         
         run_test!
@@ -72,9 +72,9 @@ describe 'sessions API' do
         run_test!
       end
 
-      response '401', 'Unauthorized' do
+      response '400', 'Bad request' do
         example 'application/json', :example_1, {
-          message: "Access denied"
+          message: "Something went wrong. Please try again"
         }
         
         run_test!
