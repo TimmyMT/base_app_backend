@@ -25,7 +25,7 @@ class Api::V1::SessionsController < ApplicationController
     return render_bad_request('Bearer not included') unless bearer
 
     token = bearer.split(' ').last
-    access_token AccessToken.find_by(token: token)
+    access_token = AccessToken.find_by(token: token)
     return render_bad_request unless access_token
 
     access_token.destroy
