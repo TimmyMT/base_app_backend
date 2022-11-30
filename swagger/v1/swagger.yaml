@@ -132,18 +132,7 @@ paths:
               type: object
               properties:
                 user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    password:
-                      type: string
-                    password_confirmation:
-                      type: string
-              required:
-              - email
-              - password
-              - password_confirmation
+                  "$ref": "#/components/schemas/signup_request_data_user"
     get:
       summary: Return users list
       tags:
@@ -195,6 +184,22 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    signup_request_data_user:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        password_confirmation:
+          type: string
+          format: password
+      required:
+      - email
+      - password
+      - password_confirmation
     user:
       type: object
       properties:
