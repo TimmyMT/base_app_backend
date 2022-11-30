@@ -41,14 +41,27 @@ RSpec.configure do |config|
           }
         },
         schemas: {
-          signup_request_data_user: {
+          signin_request_data_user: {
             type: 'object',
             properties: {
               email: { type: 'string', format: 'email' },
               password: { type: 'string', format: 'password' },
-              password_confirmation: { type: 'string', format: 'password' },
             },
-            required: %w[email password password_confirmation],
+            required: %w[email password],
+          },
+          signup_request_data_user: {
+            allOf: [
+              {
+                '$ref': '#/components/schemas/signin_request_data_user'
+              },
+              {
+                type: 'object',
+                properties: {
+                  password_confirmation: { type: 'string', format: 'password' },
+                },
+                required: %w[password_confirmation],
+              },
+            ],
           },
           user: {
             type: 'object',

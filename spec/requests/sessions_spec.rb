@@ -9,13 +9,11 @@ describe 'sessions API' do
       parameter name: :session, in: :body, schema: {
         type: :object,
         properties: {
-          user: { type: :object, properties: {
-              email: { type: :string },
-              password: { type: :string }
-            }
+          user: {
+            '$ref' => '#/components/schemas/signin_request_data_user'
           },
         },
-        required: [ 'email', 'password', 'password_confirmation' ]
+        required: [ 'user' ]
       }
 
       response '201', "Created" do
