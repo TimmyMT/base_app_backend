@@ -41,6 +41,17 @@ RSpec.configure do |config|
           }
         },
         schemas: {
+          jwt_payload: {
+            type: 'object',
+            properties: {
+              id: { type: 'integer' },
+              email: { type: 'string', format: 'email' },
+              admin: { type: 'boolean' },
+              salt: { type: 'string' },
+              expires_in: { type: 'string', format: 'date-time' },
+            },
+            required: %w[id email admin salt expires_in],
+          },
           signin_request_data_user: {
             type: 'object',
             properties: {
@@ -77,8 +88,9 @@ RSpec.configure do |config|
             type: 'object',
             properties: {
               email: { type: 'array', items: { type: 'string' } },
-              password: { type: 'array', items: { type: 'string' } }
-            }
+              password: { type: 'array', items: { type: 'string' } },
+              
+            },
           },
           access_token: {
             type: 'object',

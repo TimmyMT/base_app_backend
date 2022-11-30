@@ -195,6 +195,27 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    jwt_payload:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        admin:
+          type: boolean
+        salt:
+          type: string
+        expires_in:
+          type: string
+          format: date-time
+      required:
+      - id
+      - email
+      - admin
+      - salt
+      - expires_in
     signin_request_data_user:
       type: object
       properties:
