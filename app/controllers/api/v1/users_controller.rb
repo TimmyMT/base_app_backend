@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authenticate!, only: [:index]
+  before_action :authenticate!, only: [:index, :update]
+  before_action :set_user, only: [:show, :update]
 
   def index
     authorize(nil, policy_class: UsersPolicy)
@@ -8,9 +9,17 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
+    render json: @user
+  end
 
-    render json: user
+  def update
+    authorize(@user, policy_class: UsersPolicy)
+    
+    if @user.update(profile_params)
+      render json: @user
+    else
+      render_bad_request(@user.errors.messages)
+    end
   end
 
   def create
@@ -23,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
   
       render json: { message: "You're registered successfully" }, status: :created
     else
-      render json: { errors: user.errors.messages }, status: :bad_request
+      render_bad_request(user.errors.messages)
     end
   end
 
@@ -38,11 +47,19 @@ class Api::V1::UsersController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def passwords_valid?
     return false if user_params[:password_confirmation].blank?
     return false if user_params[:password].blank?
 
     user_params[:password_confirmation] == user_params[:password]
+  end
+
+  def profile_params
+    params.require(:profile).permit(:first_name, :last_name, :age)
   end
 
   def user_params

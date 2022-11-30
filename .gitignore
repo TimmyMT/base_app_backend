@@ -30,3 +30,5 @@
 
 # Environment variables
 .env
+
+/coverage
