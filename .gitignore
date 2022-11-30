@@ -23,6 +23,8 @@
 /config/master.key
 /config/database.yml
 
+/node_modules
+
 # PostgreSQL data
 /postgresql
 
