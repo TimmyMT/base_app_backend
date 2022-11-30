@@ -70,7 +70,7 @@ RSpec.configure do |config|
               last_name: { type: 'string' },
               age: { type: 'integer' }
             },
-            required: %w[email password],
+            required: %w[first_name last_name age],
           },
           user: {
             type: 'object',
