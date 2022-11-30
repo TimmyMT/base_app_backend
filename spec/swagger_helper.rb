@@ -41,6 +41,28 @@ RSpec.configure do |config|
           }
         },
         schemas: {
+          signin_request_data_user: {
+            type: 'object',
+            properties: {
+              email: { type: 'string', format: 'email' },
+              password: { type: 'string', format: 'password' },
+            },
+            required: %w[email password],
+          },
+          signup_request_data_user: {
+            allOf: [
+              {
+                '$ref': '#/components/schemas/signin_request_data_user'
+              },
+              {
+                type: 'object',
+                properties: {
+                  password_confirmation: { type: 'string', format: 'password' },
+                },
+                required: %w[password_confirmation],
+              },
+            ],
+          },
           user: {
             type: 'object',
             properties: {
@@ -48,7 +70,8 @@ RSpec.configure do |config|
               email: { type: 'string', format: 'email' },
               created_at: { type: 'string', format: 'date-time' }, # "2022-11-20T13:48:04.539Z"
               updated_at: { type: 'string', format: 'date-time'  }
-            },# required: %w[id email created_at updated_at]
+            },
+            required: %w[id email created_at updated_at],
           },
           access_token: {
             type: 'object',
@@ -57,7 +80,8 @@ RSpec.configure do |config|
               token: { type: 'string' },
               expires_in: { type: 'string', format: 'date-time' },
               refresh: { type: 'string' }
-            }
+            },
+            required: %w[user_id token expires_in refresh],
           },
           users_array: {
             type: 'array',

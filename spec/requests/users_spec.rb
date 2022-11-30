@@ -8,14 +8,10 @@ describe 'users API' do
       parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {
-          user: { type: :object, properties: {
-              email: { type: :string },
-              password: { type: :string },
-              password_confirmation: { type: :string }
-            }
-          },
-        },
-        required: [ 'email', 'password', 'password_confirmation' ]
+          user: {
+            '$ref' => '#/components/schemas/signup_request_data_user'
+          }
+        }
       }
 
       response '201', "Created" do

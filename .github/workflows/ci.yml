@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [1]
+        ci_node_total: [2]
         ci_node_index: [0]
     services:
       postgresql:
@@ -59,3 +59,8 @@ jobs:
           cp config/database.yml.ci config/database.yml
           bundle exec rails db:prepare
           bundle exec rspec spec/app
+          bundle exec rake rswag:specs:swaggerize
+
+      - name: Swagger
+        run: |
+          bundle exec rake rswag:specs:swaggerize
