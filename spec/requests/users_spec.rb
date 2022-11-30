@@ -66,4 +66,28 @@ describe 'users API' do
       end
     end
   end
+
+  path '/api/v1/users/:id/confirm_account' do
+    get 'Confirm account' do
+      tags 'Users'
+      produces 'application/json'
+      parameter name: :id, in: :path, type: :string
+
+      response '200', "Found" do
+        example 'application/json', :example_1, {
+          message: "Welcome to the Sample App! Your email has been confirmed"
+        }
+
+        run_test!
+      end
+
+      response '400', "Bad request" do
+        example 'application/json', :example_1, {
+          message: "Something went wrong, please try again"
+        }
+
+        run_test!
+      end
+    end
+  end
 end

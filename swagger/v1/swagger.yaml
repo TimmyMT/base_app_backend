@@ -154,6 +154,34 @@ paths:
                 example_1:
                   value:
                     message: Something went wrong, please try again
+  "/api/v1/users/:id/confirm_account":
+    get:
+      summary: Confirm account
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    message: Welcome to the Sample App! Your email has been confirmed
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                example_1:
+                  value:
+                    message: Something went wrong, please try again
 servers:
 - url: http://{defaultHost}
   variables:
