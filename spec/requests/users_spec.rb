@@ -106,7 +106,8 @@ describe 'users API' do
           profile: {
             '$ref' => '#/components/schemas/profile_data_user'
           }
-        }
+        },
+        required: [ 'first_name', 'last_name', 'age' ]
       }
 
       response '200', "Found" do
