@@ -176,6 +176,10 @@ paths:
               properties:
                 profile:
                   "$ref": "#/components/schemas/profile_data_user"
+              required:
+              - first_name
+              - last_name
+              - age
   "/api/v1/users/:id/confirm_account":
     get:
       summary: Confirm account
@@ -269,8 +273,9 @@ components:
         age:
           type: integer
       required:
-      - email
-      - password
+      - first_name
+      - last_name
+      - age
     user:
       type: object
       properties:
