@@ -17,10 +17,14 @@ class Api::V1::UsersController < ApplicationController
     user = User.new(user_params)
     return render_bad_request if !user.valid? && !passwords_valid?
 
-    user.save
-    UserMailer.send_confirm_mail(user).deliver
-
-    render json: { message: "You're registered successfully" }, status: 201
+    if user.valid?
+      user.save
+      UserMailer.send_confirm_mail(user).deliver
+  
+      render json: { message: "You're registered successfully" }, status: :created
+    else
+      render json: { errors: user.errors.messages }, status: :bad_request
+    end
   end
 
   def confirm_account

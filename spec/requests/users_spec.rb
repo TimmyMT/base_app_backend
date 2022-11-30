@@ -5,6 +5,7 @@ describe 'users API' do
     post 'Creates a user' do
       tags 'Users'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {
@@ -23,8 +24,11 @@ describe 'users API' do
       end
 
       response '400', "Bad request", document: true do
-        example 'application/json', :example_1, {
-          message: "Something went wrong, please try again"
+        schema type: :object,
+        properties: { 
+          errors: { 
+            '$ref' => '#/components/schemas/invalid_user'
+          }
         }
 
         run_test!

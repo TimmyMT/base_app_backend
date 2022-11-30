@@ -73,6 +73,13 @@ RSpec.configure do |config|
             },
             required: %w[id email created_at updated_at],
           },
+          invalid_user: {
+            type: 'object',
+            properties: {
+              email: { type: 'array', items: { type: 'string' } },
+              password: { type: 'array', items: { type: 'string' } }
+            }
+          },
           access_token: {
             type: 'object',
             properties: {
