@@ -155,6 +155,27 @@ paths:
                 example_1:
                   value:
                     message: Something went wrong, please try again
+    patch:
+      summary: Update user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                type: object
+                "$ref": "#/components/schemas/user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  "$ref": "#/components/schemas/profile_data_user"
   "/api/v1/users/:id/confirm_account":
     get:
       summary: Confirm account
@@ -217,6 +238,18 @@ components:
             format: password
         required:
         - password_confirmation
+    profile_data_user:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        age:
+          type: integer
+      required:
+      - email
+      - password
     user:
       type: object
       properties:
@@ -225,6 +258,12 @@ components:
         email:
           type: string
           format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        age:
+          type: integer
         created_at:
           type: string
           format: date-time

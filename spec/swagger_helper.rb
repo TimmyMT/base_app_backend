@@ -63,11 +63,23 @@ RSpec.configure do |config|
               },
             ],
           },
+          profile_data_user: {
+            type: 'object',
+            properties: {
+              first_name: { type: 'string' },
+              last_name: { type: 'string' },
+              age: { type: 'integer' }
+            },
+            required: %w[email password],
+          },
           user: {
             type: 'object',
             properties: {
               id: { type: 'integer' },
               email: { type: 'string', format: 'email' },
+              first_name: { type: 'string' },
+              last_name: { type: 'string' },
+              age: { type: 'integer' },
               created_at: { type: 'string', format: 'date-time' }, # "2022-11-20T13:48:04.539Z"
               updated_at: { type: 'string', format: 'date-time'  }
             },

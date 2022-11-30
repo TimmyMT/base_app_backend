@@ -94,4 +94,26 @@ describe 'users API' do
       end
     end
   end
+
+  path '/api/v1/users/:id' do
+    patch 'Update user' do
+      tags 'Users'
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: :profile, in: :body, schema: {
+        type: :object,
+        properties: {
+          profile: {
+            '$ref' => '#/components/schemas/profile_data_user'
+          }
+        }
+      }
+
+      response '200', "Found" do
+        schema type: :object, '$ref' => '#/components/schemas/user'
+
+        run_test!
+      end
+    end
+  end
 end
