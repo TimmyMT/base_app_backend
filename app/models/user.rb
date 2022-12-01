@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :access_tokens, dependent: :destroy
   has_many :refresh_tokens, dependent: :destroy
+  has_one_attached :avatar, dependent: :destroy
 
   before_create :confirmation_token
 

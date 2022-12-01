@@ -128,7 +128,7 @@ paths:
               schema:
                 type: object
                 "$ref": "#/components/schemas/users_array"
-  "/api/v1/users/:id":
+  "/api/v1/users/{id}":
     get:
       summary: Return user
       tags:
@@ -159,7 +159,12 @@ paths:
       summary: Update user
       tags:
       - Users
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Found
@@ -172,15 +177,13 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                profile:
-                  "$ref": "#/components/schemas/profile_data_user"
-              required:
-              - first_name
-              - last_name
-              - age
-  "/api/v1/users/:id/confirm_account":
+              "$ref": "#/components/schemas/profile_data_user"
+              encoding:
+                avatar:
+                  contentType:
+                  - image/png
+                  - image/jpeg
+  "/api/v1/users/{id}/confirm_account":
     get:
       summary: Confirm account
       tags:
@@ -208,6 +211,35 @@ paths:
                 example_1:
                   value:
                     message: Something went wrong, please try again
+  "/api/v1/users/{id}/load_avatar":
+    patch:
+      summary: Load user avatar
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                type: object
+                "$ref": "#/components/schemas/user"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/avatar_file"
+              encoding:
+                avatar:
+                  contentType:
+                  - image/png
+                  - image/jpeg
 servers:
 - url: http://{defaultHost}
   variables:
@@ -272,10 +304,11 @@ components:
           type: string
         age:
           type: integer
-      required:
-      - first_name
-      - last_name
-      - age
+    avatar_file:
+      type: object
+      properties:
+        avatar:
+          type: file
     user:
       type: object
       properties:
@@ -290,12 +323,8 @@ components:
           type: string
         age:
           type: integer
-        created_at:
+        avatar:
           type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
       required:
       - id
       - email

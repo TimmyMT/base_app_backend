@@ -80,8 +80,13 @@ RSpec.configure do |config|
               first_name: { type: 'string' },
               last_name: { type: 'string' },
               age: { type: 'integer' }
-            },
-            required: %w[first_name last_name age],
+            }
+          },
+          avatar_file: {
+            type: 'object',
+            properties: {
+              avatar: { type: 'file' }
+            }
           },
           user: {
             type: 'object',
@@ -91,8 +96,7 @@ RSpec.configure do |config|
               first_name: { type: 'string' },
               last_name: { type: 'string' },
               age: { type: 'integer' },
-              created_at: { type: 'string', format: 'date-time' }, # "2022-11-20T13:48:04.539Z"
-              updated_at: { type: 'string', format: 'date-time'  }
+              avatar: { type: 'string' }
             },
             required: %w[id email created_at updated_at],
           },
