@@ -102,10 +102,10 @@ describe 'users API' do
       produces 'application/json'
       parameter name: :id, in: :path, type: :string
       parameter in: :body, schema: {
-        '$ref' => '#/components/schemas/profile_data_user',
-        encoding: {
-          avatar: {
-            contentType: ['image/png', 'image/jpeg']
+        type: :object,
+        properties: {
+          profile: {
+            '$ref' => '#/components/schemas/profile_data_user'
           }
         }
       }
