@@ -59,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:first_name, :last_name, :age)
+    params.permit(:first_name, :last_name, :age, :avatar)
   end
 
   def user_params

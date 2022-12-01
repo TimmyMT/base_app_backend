@@ -5,7 +5,7 @@ class Tokens::Create
   def initialize(user)
     @user = user
     @payload = {}
-    @expires_time = DateTime.now + 30.minutes
+    @expires_time = DateTime.now + 2.hour
     make_payload
   end
 

@@ -95,19 +95,20 @@ describe 'users API' do
     end
   end
 
-  path '/api/v1/users/:id' do
+  path '/api/v1/users/{id}' do
     patch 'Update user' do
       tags 'Users'
-      consumes 'application/json'
+      # consumes 'application/json'
+      consumes 'multipart/form-data'
       produces 'application/json'
-      parameter name: :profile, in: :body, schema: {
-        type: :object,
-        properties: {
-          profile: {
-            '$ref' => '#/components/schemas/profile_data_user'
+      parameter name: :id, in: :path, type: :string
+      parameter in: :body, schema: {
+        '$ref' => '#/components/schemas/profile_data_user',
+        encoding: {
+          avatar: {
+            contentType: ['image/png', 'image/jpeg']
           }
-        },
-        required: [ 'first_name', 'last_name', 'age' ]
+        }
       }
 
       response '200', "Found" do
