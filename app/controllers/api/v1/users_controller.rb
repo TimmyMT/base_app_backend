@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authenticate!, only: [:index, :update]
-  before_action :set_user, only: [:show, :update]
+  before_action :authenticate!, only: [:index, :update, :load_avatar]
+  before_action :set_user, only: [:show, :update, :load_avatar]
 
   def index
     authorize(nil, policy_class: UsersPolicy)
@@ -16,6 +16,16 @@ class Api::V1::UsersController < ApplicationController
     authorize(@user, policy_class: UsersPolicy)
     
     if @user.update(profile_params)
+      render json: @user
+    else
+      render_bad_request(@user.errors.messages)
+    end
+  end
+
+  def load_avatar
+    authorize(@user, policy_class: UsersPolicy)
+    
+    if @user.update(avatar: params[:avatar])
       render json: @user
     else
       render_bad_request(@user.errors.messages)
@@ -59,7 +69,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def profile_params
-    params.permit(:first_name, :last_name, :age, :avatar)
+    params.require(:profile).permit(:first_name, :last_name, :age)
   end
 
   def user_params

@@ -128,7 +128,7 @@ paths:
               schema:
                 type: object
                 "$ref": "#/components/schemas/users_array"
-  "/api/v1/users/:id":
+  "/api/v1/users/{id}":
     get:
       summary: Return user
       tags:
@@ -155,7 +155,35 @@ paths:
                 example_1:
                   value:
                     message: Something went wrong, please try again
-  "/api/v1/users/:id/confirm_account":
+    patch:
+      summary: Update user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                type: object
+                "$ref": "#/components/schemas/user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/profile_data_user"
+              encoding:
+                avatar:
+                  contentType:
+                  - image/png
+                  - image/jpeg
+  "/api/v1/users/{id}/confirm_account":
     get:
       summary: Confirm account
       tags:
@@ -183,9 +211,9 @@ paths:
                 example_1:
                   value:
                     message: Something went wrong, please try again
-  "/api/v1/users/{id}":
+  "/api/v1/users/{id}/load_avatar":
     patch:
-      summary: Update user
+      summary: Load user avatar
       tags:
       - Users
       parameters:
@@ -206,7 +234,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/profile_data_user"
+              "$ref": "#/components/schemas/avatar_file"
               encoding:
                 avatar:
                   contentType:
@@ -276,6 +304,9 @@ components:
           type: string
         age:
           type: integer
+    avatar_file:
+      type: object
+      properties:
         avatar:
           type: file
     user:

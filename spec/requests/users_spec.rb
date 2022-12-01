@@ -49,7 +49,7 @@ describe 'users API' do
     end
   end
 
-  path '/api/v1/users/:id' do
+  path '/api/v1/users/{id}' do
     get 'Return user' do
       tags 'Users'
       produces 'application/json'
@@ -71,7 +71,7 @@ describe 'users API' do
     end
   end
 
-  path '/api/v1/users/:id/confirm_account' do
+  path '/api/v1/users/{id}/confirm_account' do
     get 'Confirm account' do
       tags 'Users'
       produces 'application/json'
@@ -98,12 +98,34 @@ describe 'users API' do
   path '/api/v1/users/{id}' do
     patch 'Update user' do
       tags 'Users'
-      # consumes 'application/json'
-      consumes 'multipart/form-data'
+      consumes 'application/json'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string
       parameter in: :body, schema: {
         '$ref' => '#/components/schemas/profile_data_user',
+        encoding: {
+          avatar: {
+            contentType: ['image/png', 'image/jpeg']
+          }
+        }
+      }
+
+      response '200', "Found" do
+        schema type: :object, '$ref' => '#/components/schemas/user'
+
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/users/{id}/load_avatar' do
+    patch 'Load user avatar' do
+      tags 'Users'
+      consumes 'multipart/form-data'
+      produces 'application/json'
+      parameter name: :id, in: :path, type: :string
+      parameter in: :body, schema: {
+        '$ref' => '#/components/schemas/avatar_file',
         encoding: {
           avatar: {
             contentType: ['image/png', 'image/jpeg']

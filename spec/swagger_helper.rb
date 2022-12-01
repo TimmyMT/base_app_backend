@@ -79,7 +79,12 @@ RSpec.configure do |config|
             properties: {
               first_name: { type: 'string' },
               last_name: { type: 'string' },
-              age: { type: 'integer' },
+              age: { type: 'integer' }
+            }
+          },
+          avatar_file: {
+            type: 'object',
+            properties: {
               avatar: { type: 'file' }
             }
           },
