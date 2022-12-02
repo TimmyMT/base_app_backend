@@ -1,4 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
+  before_action :authenticate!, only: :logout
+
   def create
     user = User.find_by(email: login_params[:email])
     return render_bad_request unless user&.valid_password?(login_params[:password])
@@ -21,14 +23,9 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def logout
-    bearer = request.env['HTTP_AUTHORIZATION']
-    return render_bad_request('Bearer not included') unless bearer
+    token = request.env['HTTP_AUTHORIZATION'].split(' ').last    
+    AccessToken.find_by(token: token).destroy
 
-    token = bearer.split(' ').last
-    access_token = AccessToken.find_by(token: token)
-    return render_bad_request unless access_token
-
-    access_token.destroy
     render json: {}, status: :no_content
   end
 
