@@ -302,6 +302,11 @@ components:
           type: string
         age:
           type: integer
+        gender:
+          type: string
+          enum:
+          - male
+          - female
     avatar_file:
       type: object
       properties:
@@ -321,6 +326,11 @@ components:
           type: string
         age:
           type: integer
+        gender:
+          type: string
+          enum:
+          - male
+          - female
         avatar:
           type: string
       required:
