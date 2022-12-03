@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_many :refresh_tokens, dependent: :destroy
   has_one_attached :avatar, dependent: :destroy
 
-  validates :gender, presence: true
   enumerize :gender, in: [:male, :female], predicates: true
 
   before_create :confirmation_token
