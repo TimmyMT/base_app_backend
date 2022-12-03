@@ -302,6 +302,8 @@ components:
           type: string
         age:
           type: integer
+        gender:
+          type: string
     avatar_file:
       type: object
       properties:
@@ -321,6 +323,8 @@ components:
           type: string
         age:
           type: integer
+        gender:
+          type: string
         avatar:
           type: string
       required:

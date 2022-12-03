@@ -79,7 +79,8 @@ RSpec.configure do |config|
             properties: {
               first_name: { type: 'string' },
               last_name: { type: 'string' },
-              age: { type: 'integer' }
+              age: { type: 'integer' },
+              gender: { type: 'string' }
             }
           },
           avatar_file: {
@@ -96,6 +97,7 @@ RSpec.configure do |config|
               first_name: { type: 'string' },
               last_name: { type: 'string' },
               age: { type: 'integer' },
+              gender: { type: 'string' },
               avatar: { type: 'string' }
             },
             required: %w[id email created_at updated_at],

@@ -17,6 +17,7 @@ gem 'rack-cors'
 
 gem 'simplecov', require: false, group: :test
 gem 'active_model_serializers', '~> 0.10.4', require: true
+gem 'enumerize'
 gem 'aws-sdk-s3', require: false
 
 group :development, :test do

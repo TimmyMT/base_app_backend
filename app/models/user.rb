@@ -1,12 +1,15 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  extend Enumerize
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_many :access_tokens, dependent: :destroy
   has_many :refresh_tokens, dependent: :destroy
   has_one_attached :avatar, dependent: :destroy
+
+  validates :gender, presence: true
+  enumerize :gender, in: [:male, :female], predicates: true
 
   before_create :confirmation_token
 
