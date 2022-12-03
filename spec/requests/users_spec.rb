@@ -42,7 +42,7 @@ describe 'users API' do
       produces 'application/json'
       
       response '200', "Found" do
-        schema type: :object, '$ref' => '#/components/schemas/users_array'
+        schema '$ref' => '#/components/schemas/users_array'
 
         run_test!
       end
@@ -56,7 +56,7 @@ describe 'users API' do
       parameter name: :id, in: :path, type: :string
 
       response '200', "Found" do
-        schema type: :object, '$ref' => '#/components/schemas/user'
+        schema '$ref' => '#/components/schemas/user'
 
         run_test!
       end
@@ -111,7 +111,7 @@ describe 'users API' do
       }
 
       response '200', "Found" do
-        schema type: :object, '$ref' => '#/components/schemas/user'
+        schema '$ref' => '#/components/schemas/user'
 
         run_test!
       end
@@ -134,7 +134,7 @@ describe 'users API' do
       }
 
       response '200', "Found" do
-        schema type: :object, '$ref' => '#/components/schemas/user'
+        schema '$ref' => '#/components/schemas/user'
 
         run_test!
       end

@@ -17,7 +17,7 @@ describe 'sessions API' do
       }
 
       response '201', "Created" do
-        schema type: :object, '$ref' => '#/components/schemas/access_token'
+        schema '$ref' => '#/components/schemas/access_token'
 
         run_test!
       end
@@ -46,7 +46,7 @@ describe 'sessions API' do
       }
 
       response '201', "Created" do
-        schema type: :object, '$ref' => '#/components/schemas/access_token'
+        schema '$ref' => '#/components/schemas/access_token'
 
         run_test!
       end

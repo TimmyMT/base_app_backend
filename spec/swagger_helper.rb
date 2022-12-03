@@ -74,20 +74,22 @@ RSpec.configure do |config|
               },
             ],
           },
+          gender: { type: 'string', enum: ['male', 'female'] },
           profile_data_user: {
             type: 'object',
             properties: {
               first_name: { type: 'string' },
               last_name: { type: 'string' },
               age: { type: 'integer' },
-              gender: { type: 'string', enum: ['male', 'female'] }
+              gender: { '$ref' => '#/components/schemas/gender' },
             }
           },
           avatar_file: {
             type: 'object',
             properties: {
-              avatar: { type: 'file' }
-            }
+              avatar: { type: 'string', format: 'binary' }
+            },
+            required: %w[avatar]
           },
           user: {
             type: 'object',
@@ -97,8 +99,8 @@ RSpec.configure do |config|
               first_name: { type: 'string' },
               last_name: { type: 'string' },
               age: { type: 'integer' },
-              gender: { type: 'string', enum: ['male', 'female'] },
-              avatar: { type: 'string' }
+              gender: { '$ref' => '#/components/schemas/gender' },
+              avatar: { type: 'string' },
             },
             required: %w[id email created_at updated_at],
           },
