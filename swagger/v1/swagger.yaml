@@ -325,6 +325,9 @@ components:
           type: integer
         gender:
           type: string
+          enum:
+          - male
+          - female
         avatar:
           type: string
       required:

@@ -97,7 +97,7 @@ RSpec.configure do |config|
               first_name: { type: 'string' },
               last_name: { type: 'string' },
               age: { type: 'integer' },
-              gender: { type: 'string' },
+              gender: { type: 'string', enum: ['male', 'female'] },
               avatar: { type: 'string' }
             },
             required: %w[id email created_at updated_at],
