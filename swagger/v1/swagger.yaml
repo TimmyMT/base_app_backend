@@ -304,6 +304,9 @@ components:
           type: integer
         gender:
           type: string
+          enum:
+          - male
+          - female
     avatar_file:
       type: object
       properties:
