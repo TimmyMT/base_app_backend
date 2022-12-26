@@ -35,11 +35,10 @@ RSpec.describe Api::V1::UsersController, type: :request do
 
   describe 'PATCH #update' do
     let(:user) { create :user, first_name: 'john', last_name: 'smith', age: 17 }
-    let(:token) { Tokens::Create.new(user).call }
 
     before do
-      patch "#{base_url}/#{user.id}", { profile: { first_name: 'Ben', last_name: 'Howard', age: 25 } },
-        { "HTTP_AUTHORIZATION" => "Bearer #{token.token}" }
+      auth(user)
+      patch "#{base_url}/#{user.id}", { profile: { first_name: 'Ben', last_name: 'Howard', age: 25 } }
     end
 
     it 'return status OK' do

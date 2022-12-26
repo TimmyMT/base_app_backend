@@ -7,6 +7,11 @@ require 'rails_helper'
 module ApiHelper
   include Rack::Test::Methods
 
+  def auth(user)
+    access_token = Tokens::Create.new(user).call
+    header 'Authorization', "Bearer #{access_token.token}"
+  end
+
   def json
     JSON.parse(last_response.body)
   end

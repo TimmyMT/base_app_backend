@@ -86,11 +86,11 @@ RSpec.describe Api::V1::SessionsController, type: :request do
   describe 'DELETE #logout' do
     context 'when user tries to logout with valid token' do
       let(:user) { create :user }
-      let(:access_token) { Tokens::Create.new(user).call }
       
       context 'when access token is valid' do
         before do
-          delete "#{base_url}/logout", {}, { "HTTP_AUTHORIZATION" => "Bearer #{access_token.token}" }
+          auth(user)
+          delete "#{base_url}/logout", {}
         end
 
         it 'return status no content' do
